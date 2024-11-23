@@ -63,13 +63,39 @@ class FirstBackend implements Backend {
     if (name in this.participants) {
       throw new Error(`Participant ${name} already exists`);
     }
+    this.participants.push(name);
   }
 
   hasParticipant(name: string): boolean {
-    return true;
+    if (name in this.participants) {
+      return true;
+    }
+    return false;
   }
 
   removeParticipan(name: string): boolean {
-    return true;
+    const index = this.participants.indexOf(name);
+    if (index > -1) {
+      this.participants.splice(index, 1);
+      return true;
+    }
+    return false; // element is not present
   }
+}
+
+const participantName = "Alexey";
+
+let backend: Backend;
+backend = new FirstBackend();
+
+backend.addParticipant(participantName);
+if (backend.hasParticipant(participantName)) {
+  console.log(`Participant ${participantName} exists!`);
+}
+
+backend.removeParticipan(participantName);
+if (backend.hasParticipant(participantName)) {
+  console.log(`Participant ${participantName} exists!`);
+} else {
+  console.log(`Participant doesn't exist!`);
 }
