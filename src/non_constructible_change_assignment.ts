@@ -13,15 +13,20 @@ export function nonConstructibleChange(coins: number[]) {
   let tmpArray: number[] = [];
 
   for (let i = 0; i < coins.length; i++) {
+    console.log(`index: ${i}`);
+
     const num = coins[i];
     if (num === curChange) {
+      console.log(`Element ${curChange} exists`);
       curChange++;
-      i = -1; // will be incremented the next itration
+      i = 0; // will be incremented the next itration
+      tmpArray = [];
     } else if (num < curChange) {
       tmpArray.push(num);
     } else {
       // process tmp array
       tmpArray.sort((a, b) => a - b);
+      console.log(`Current array: ${tmpArray}, curChange: ${curChange}`);
 
       let foundCurChange: boolean = false;
       for (let k = 0; k < tmpArray.length && !foundCurChange; k++) {
@@ -33,6 +38,11 @@ export function nonConstructibleChange(coins: number[]) {
         }
       }
 
+      if (!foundCurChange) {
+        return curChange;
+      }
+
+      curChange++;
       tmpArray = [];
     }
   }
@@ -41,6 +51,5 @@ export function nonConstructibleChange(coins: number[]) {
 }
 
 const coins: number[] = [5, 7, 1, 1, 2, 3, 22];
-const sorted: number[] = [1, 1, 2, 3, 5, 7, 22];
 
 console.log(nonConstructibleChange(coins));
