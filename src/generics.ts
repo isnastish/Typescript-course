@@ -54,7 +54,7 @@ const target = mergeObjects(
 console.log(target);
 
 // A better way of doing that would be
-function mergeObjectsGeneric<T extends {}, U>(a: T, b: U): T & U {
+function mergeObjectsGeneric<T extends {}, U extends {}>(a: T, b: U): T & U {
   return Object.assign(a, b);
 }
 
